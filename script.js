@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+const restartButton = document.querySelector("#restart");
 
 // Get a random number between min and max
 function getComputerChoice(min, max) {
@@ -17,7 +18,6 @@ const results = document.querySelector("#results");
 // Play one round
 function playRound(humanChoice, computerChoice) {
 
-    // Stop the game if someone has already reached 5
     if (humanScore === 5 || computerScore === 5) {
         return;
     }
@@ -25,18 +25,17 @@ function playRound(humanChoice, computerChoice) {
     if (humanChoice === "ROCK") {
 
         switch (computerChoice) {
-
             case 1:
-                results.innerHTML += "<p>Computer chose Rock. Draw!</p>";
+                results.textContent = "Computer chose Rock. Draw!";
                 break;
 
             case 2:
-                results.innerHTML += "<p>Computer chose Paper. You lost!</p>";
+                results.textContent = "Computer chose Paper. You lost!";
                 computerScore++;
                 break;
 
             case 3:
-                results.innerHTML += "<p>Computer chose Scissors. You win!</p>";
+                results.textContent = "Computer chose Scissors. You win!";
                 humanScore++;
                 break;
         }
@@ -44,18 +43,17 @@ function playRound(humanChoice, computerChoice) {
     } else if (humanChoice === "PAPER") {
 
         switch (computerChoice) {
-
             case 1:
-                results.innerHTML += "<p>Computer chose Rock. You win!</p>";
+                results.textContent = "Computer chose Rock. You win!";
                 humanScore++;
                 break;
 
             case 2:
-                results.innerHTML += "<p>Computer chose Paper. Draw!</p>";
+                results.textContent = "Computer chose Paper. Draw!";
                 break;
 
             case 3:
-                results.innerHTML += "<p>Computer chose Scissors. You lost!</p>";
+                results.textContent = "Computer chose Scissors. You lost!";
                 computerScore++;
                 break;
         }
@@ -63,35 +61,33 @@ function playRound(humanChoice, computerChoice) {
     } else if (humanChoice === "SCISSORS") {
 
         switch (computerChoice) {
-
             case 1:
-                results.innerHTML += "<p>Computer chose Rock. You lost!</p>";
+                results.textContent = "Computer chose Rock. You lost!";
                 computerScore++;
                 break;
 
             case 2:
-                results.innerHTML += "<p>Computer chose Paper. You win!</p>";
+                results.textContent = "Computer chose Paper. You win!";
                 humanScore++;
                 break;
 
             case 3:
-                results.innerHTML += "<p>Computer chose Scissors. Draw!</p>";
+                results.textContent = "Computer chose Scissors. Draw!";
                 break;
         }
     }
 
-    // Display score
-    results.innerHTML += `
-        <p><strong>Your Score: ${humanScore} | Computer Score: ${computerScore}</strong></p>
-    `;
+    // Update the existing score instead of creating a new line
+    score.textContent =
+        `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
 
-    // Check whether the game has been won
     if (humanScore === 5) {
-        results.innerHTML += "<h2>You won the game! 🎉</h2>";
+        results.textContent = "You won the game! 🎉";
         disableButtons();
-    } 
-    else if (computerScore === 5) {
-        results.innerHTML += "<h2>You lost the game. Better luck next time!</h2>";
+    }
+
+    if (computerScore === 5) {
+        results.textContent = "You lost the game. Better luck next time!";
         disableButtons();
     }
 }
@@ -135,4 +131,22 @@ function disableButtons() {
     rockButton.disabled = true;
     paperButton.disabled = true;
     scissorsButton.disabled = true;
+
+    restartButton.hidden = false;
 }
+//restart function
+restartButton.addEventListener("click", function () {
+
+    humanScore = 0;
+    computerScore = 0;
+
+    score.textContent = "Your Score: 0 | Computer Score: 0";
+
+    results.textContent = "Choose Rock, Paper, or Scissors to start!";
+
+    rockButton.disabled = false;
+    paperButton.disabled = false;
+    scissorsButton.disabled = false;
+
+    restartButton.hidden = true;
+});
