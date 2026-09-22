@@ -82,7 +82,7 @@ function playRound(humanChoice, computerChoice) {
         `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
 
     if (humanScore === 5) {
-        results.textContent = "You won the game! 🎉";
+        results.textContent = "You won the game!";
         disableButtons();
     }
 
